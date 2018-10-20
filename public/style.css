@@ -57,50 +57,39 @@ p {
     cursor: pointer;
 }
 
-.rippleA:after {
-    content: "";
-    background-image: linear-gradient(to bottom, #1ee4e8, #1de864);
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px!important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
-}
-
-.rippleA:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-}
-
-.rippleB:after {
-    content: "";
-    background-image: linear-gradient(to bottom, #e8381d, #e86b1d);
-    display: block;
-    position: absolute;
-    padding-top: 300%;
-    padding-left: 350%;
-    margin-left: -20px!important;
-    margin-top: -120%;
-    opacity: 0;
-    transition: all 0.8s
-}
-
-.rippleB:active:after {
-    padding: 0;
-    margin: 0;
-    opacity: 1;
-    transition: 0s
-}
-
 #grad1 {
 	background-image: linear-gradient(to bottom, #1ee4e8, #1de864);
 }
 
 #grad2 {
-	background-image: linear-gradient(to bottom, #e8381d, #e67b1d);
+	background-image: linear-gradient(to bottom, #6097ea, #6b60ea);
+}
+
+.ripple {
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.ripple:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  transform: scale(10, 10);
+  opacity: 0;
+  transition: transform .5s, opacity 1s;
+}
+
+.ripple:active:after {
+  transform: scale(0, 0);
+  opacity: .3;
+  transition: 0s;
 }
