@@ -2,7 +2,8 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// app.get('/', (req, res) => res.redirect('./index.html'))
+app.get('/', (req, res) => res.sendFile('public/index.html', { root: __dirname }))
 
 var requestURL = 'https://api.fitbit.com/1/user/6XYDTQ/activities/heart/date/today/1d.json';
 var XMLHttpRequest= require("xmlhttprequest").XMLHttpRequest;
