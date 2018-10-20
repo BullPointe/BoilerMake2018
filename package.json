@@ -1,0 +1,22 @@
+{
+  "name": "boilermake2018",
+  "version": "1.0.0",
+  "description": "BoilerMakeVI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BullPointe/BoilerMake2018.git"
+  },
+  "author": "Sahil Jaganmohan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BullPointe/BoilerMake2018/issues"
+  },
+  "homepage": "https://github.com/BullPointe/BoilerMake2018#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
