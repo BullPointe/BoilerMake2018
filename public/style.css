@@ -44,12 +44,57 @@ p {
 	display: table;
 }
 
-.col-sm-5 p {
+.col-sm-5 {
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
 	color: white;
 	font-size: 30px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.rippleA:after {
+    content: "";
+    background-image: linear-gradient(to bottom, #1ee4e8, #1de864);
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.rippleA:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+.rippleB:after {
+    content: "";
+    background-image: linear-gradient(to bottom, #e8381d, #e86b1d);
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px!important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.rippleB:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
 }
 
 #grad1 {
@@ -57,5 +102,5 @@ p {
 }
 
 #grad2 {
-	background-image: linear-gradient(to bottom, #e8381d, #e87b1d);
+	background-image: linear-gradient(to bottom, #e8381d, #e67b1d);
 }
