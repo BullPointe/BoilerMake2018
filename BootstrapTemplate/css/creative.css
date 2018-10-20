@@ -378,11 +378,13 @@ p {
 
 #grad1 {
   font-size: 44px;
+  line-height: 125px;
   background-image: linear-gradient(to bottom, #e55d24, #e59e24);
 }
 
 #grad2 {
   font-size: 44px;
+  line-height: 125px;
   background-image: linear-gradient(to bottom, #e5ab24, #e1e524);
 }
 
@@ -402,7 +404,7 @@ p {
   left: 0;
   pointer-events: none;
   background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-position: 50%;
   transform: scale(10, 10);
   opacity: 0;
@@ -443,6 +445,7 @@ input{
 }
 #submit{
   height: 50px;
+  line-height: 50px;
   background-color: #FFFFFF;
   border-style: solid;
   border-width: 1px;
@@ -452,4 +455,46 @@ input{
   display: table;
   color: #000000;
 
+}
+.pulse {
+  mix-blend-mode: multiply;
+  animation: pulse 3s infinite;
+  margin: 0 auto;
+  display: table;
+  margin-top: 50px;
+  animation-direction: alternate;
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#centered {
+    color: "white"!important;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

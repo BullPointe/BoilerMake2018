@@ -41,7 +41,7 @@
               <a class="nav-link js-scroll-trigger" href="#about">Login</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Sign Up</a>
+              <a class="nav-link js-scroll-trigger" href="#services">Get Started</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">News</a>
@@ -87,7 +87,7 @@
                <input class="field" type="password" name="password"><br>
                <div class="row">
                  <div class="col-sm-5"></div>
-                 <button class="ripple col-sm-2" id="submit" color="black">Submit</button>
+                 <a class="ripple col-sm-2" id="submit" color="black">Submit</a>
                  <div class="col-sm-5"></div>
                </div>
           </form>
@@ -106,111 +106,64 @@
       </div>
       <div class="row">
         <div class="col-sm-1"></div>
-          <button id="grad1" class="col-sm-4 ripple">
+          <a id="grad1" class="btn col-sm-4 ripple nav-link js-scroll-trigger" href="#heart">
             Detect mood
-          </button>
+          </a>
           <div class="col-sm-2"></div>
-            <button id="grad2" class="col-sm-4 ripple">
+            <a id="grad2" class="btn col-sm-4 ripple nav-link js-scroll-trigger" href="#heart">
               Pick a mood
-            </button>
+            </a>
             <div class="col-sm-1"></div>
           </div>
       </div>
     </section>
 
-    <section class="p-0" id="portfolio">
-      <div class="container-fluid p-0">
-        <div class="row no-gutters popup-gallery">
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/1.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/1.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
+    <section class="p-0" id="heart">
+      <div class="row">
+        <div class ="col-sm-6" id="chartContainer" style="height: 370px; width: 100%;">
+          <head>  
+            <script>
+            window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+              animationEnabled: true,
+              theme: "light2", // "light1", "light2", "dark1", "dark2"
+              title:{
+                text: "Heart Rate over past 24 Hours"
+              },
+              axisY: {
+                title: "Beats Per Minute (BPM)"
+              },
+              data: [{        
+                type: "column",  
+                dataPoints: [      
+                  { y: 300878, label: "Venezuela" },
+                  { y: 266455,  label: "Saudi" },
+                  { y: 169709,  label: "Canada" },
+                  { y: 158400,  label: "Iran" },
+                  { y: 142503,  label: "Iraq" },
+                  { y: 101500, label: "Kuwait" },
+                  { y: 97800,  label: "UAE" },
+                  { y: 80000,  label: "Russia" }
+                ]
+              }]
+            });
+            chart.render();
+
+            }
+            </script>
+          </head>
+          <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+        </div>
+        <div class="col-sm-6">
+          <a class="pulse" href="img/heart.jpg">
+            <div class="container">
+              <img class="img-fluid" src="img/heart.jpg" alt="">
                 </div>
+                <p id="centered" color="white">Measuring heart rate</p>
               </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/2.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/2.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/3.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/3.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/4.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/4.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/5.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/5.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-4 col-sm-6">
-            <a class="portfolio-box" href="img/portfolio/fullsize/6.jpg">
-              <img class="img-fluid" src="img/portfolio/thumbnails/6.jpg" alt="">
-              <div class="portfolio-box-caption">
-                <div class="portfolio-box-caption-content">
-                  <div class="project-category text-faded">
-                    Category
-                  </div>
-                  <div class="project-name">
-                    Project Name
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>
