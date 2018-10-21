@@ -2,7 +2,25 @@ const express = require('express')
 var request = require('request');
 const app = express()
 const port = 8888
-
+function doRequest(id,access_token){
+  var rp = require('request-promise');
+  options = {
+  url: 'https://api.spotify.com/v1/audio-features/'+id,
+  headers: { 'Authorization': 'Bearer ' + access_token,
+  'User-Agent':'Request-Promise'
+  },
+  json: true
+  };
+  rp(options)
+    .then(function(repos){
+      console.log(repos);
+      return (repos.tempo)
+      // console.log('User has %d repos', repos.length);
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+}
 
 // var request = require('request'); // "Request" library
 var cors = require('cors');
@@ -41,7 +59,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-library-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -56,7 +74,7 @@ app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
-  
+
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -88,18 +106,46 @@ app.get('/callback', function(req, res) {
             refresh_token = body.refresh_token;
 
         var options = {
-          url: 'https://api.spotify.com/v1/me',
+          url: 'https://api.spotify.com/v1/me/tracks?limit=50',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-
+        var ids = [];
+        var results = [];
         // use the access token to access the Spotify Web API
+        var promises = [];
+
+
         request.get(options, function(error, response, body) {
-          console.log(body);
+        //var results = [];
+        var tempo;
+        for(i=0; i<body.items.length; i++){
+
+          var promise1 = new Promise(function(resolve, reject) {
+            options = {
+              url: 'https://api.spotify.com/v1/audio-features/'+body['items'][i]['track']['id'],
+              headers: { 'Authorization': 'Bearer ' + access_token },
+              json: true
+            };
+            request.get(options, function(error, response, body){
+                resolve(body['tempo']);
+                // results.push(body['tempo']);
+            });
+          });
+          promises.push(promise1);
+        };
+        Promise.all(promises).then(function(values) {
+
+          console.log(results);
+          //console.log(values);
+          results.push(values);
+          console.log("Results: " + results);
+        });
+
         });
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:8888/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -138,6 +184,8 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////
+
 app.get('/getbpm', function(req, res) {
 
   // app.get('/getBPM', (req, res) => {
@@ -175,10 +223,10 @@ app.get('/getbpm', function(req, res) {
         json = body['activities-heart-intraday']['dataset']
         results = [];
         for(i =0; i < json.length-1; i++)
-        { 
+        {
           results.push(json[i]['value']);
         }
-     
+
         res.send(JSON.stringify(results))
       });
     }
