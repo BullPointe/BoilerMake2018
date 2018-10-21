@@ -41,7 +41,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email user-library-read';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -56,7 +56,7 @@ app.get('/callback', function(req, res) {
 
   // your application requests refresh and access tokens
   // after checking the state parameter
-  
+
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
@@ -88,18 +88,33 @@ app.get('/callback', function(req, res) {
             refresh_token = body.refresh_token;
 
         var options = {
-          url: 'https://api.spotify.com/v1/me',
+          url: 'https://api.spotify.com/v1/me/tracks?limit=50',
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
 
         // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
+          request.get(options, function(error, response, body) {
+          var results=[];
+          var link="";
+          for (var i=0; i<body.items.length; i++){
+            link='https://api.spotify.com/v1/audio-features/'+body['items'][i]['track']['id'];
+            options = {
+              url: link,
+              headers: { 'Authorization': 'Bearer ' + access_token },
+              json: true
+            };
+            request.get(options, function(error, response, body2){
+            console.log("bod is " + body2);
+            results.push(body2['tempo']);
+          });
+        };
+        console.log("hi" + results);
+      });
+          //console.log(body['items'][0]['track']['id']);
 
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
+        res.redirect('http://localhost:8888/#' +
           querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -175,10 +190,10 @@ app.get('/getbpm', function(req, res) {
         json = body['activities-heart-intraday']['dataset']
         results = [];
         for(i =0; i < json.length-1; i++)
-        { 
+        {
           results.push(json[i]['value']);
         }
-     
+
         res.send(JSON.stringify(results))
       });
     }
