@@ -2,7 +2,25 @@ const express = require('express')
 var request = require('request');
 const app = express()
 const port = 8888
-
+function doRequest(id,access_token){
+  var rp = require('request-promise');
+  options = {
+  url: 'https://api.spotify.com/v1/audio-features/'+id,
+  headers: { 'Authorization': 'Bearer ' + access_token,
+  'User-Agent':'Request-Promise'
+  },
+  json: true
+  };
+  rp(options)
+    .then(function(repos){
+      console.log(repos);
+      return (repos.tempo)
+      // console.log('User has %d repos', repos.length);
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+}
 
 // var request = require('request'); // "Request" library
 var cors = require('cors');
@@ -92,26 +110,39 @@ app.get('/callback', function(req, res) {
           headers: { 'Authorization': 'Bearer ' + access_token },
           json: true
         };
-
+        var ids = [];
+        var results = [];
         // use the access token to access the Spotify Web API
-          request.get(options, function(error, response, body) {
-          var results=[];
-          var link="";
-          for (var i=0; i<body.items.length; i++){
-            link='https://api.spotify.com/v1/audio-features/'+body['items'][i]['track']['id'];
+        var promises = [];
+
+
+        request.get(options, function(error, response, body) {
+        //var results = [];
+        var tempo;
+        for(i=0; i<body.items.length; i++){
+
+          var promise1 = new Promise(function(resolve, reject) {
             options = {
-              url: link,
+              url: 'https://api.spotify.com/v1/audio-features/'+body['items'][i]['track']['id'],
               headers: { 'Authorization': 'Bearer ' + access_token },
               json: true
             };
-            request.get(options, function(error, response, body2){
-            console.log("bod is " + body2);
-            results.push(body2['tempo']);
+            request.get(options, function(error, response, body){
+                resolve(body['tempo']);
+                // results.push(body['tempo']);
+            });
           });
+          promises.push(promise1);
         };
-        console.log("hi" + results);
-      });
-          //console.log(body['items'][0]['track']['id']);
+        Promise.all(promises).then(function(values) {
+
+          console.log(results);
+          //console.log(values);
+          results.push(values);
+          console.log("Results: " + results);
+        });
+
+        });
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('http://localhost:8888/#' +
@@ -152,6 +183,8 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/getbpm', function(req, res) {
 
