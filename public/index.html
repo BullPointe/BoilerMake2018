@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">Login</a>
+              <a class="nav-link js-scroll-trigger" href="/login">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#services">Get Started</a>
@@ -75,19 +75,10 @@
       <div class="container">
         <div class="form">
           <form>
-               First Name<br>
-               <input class="field" type="text" name="firstName"><br>
-               Last Name<br>
-               <input class="field" type="text" name="lastName"><br>
-               Email<br>
-               <input class="field" type="text" name="email"><br>
-               Username<br>
-               <input class="field" type="text" name="username"><br>
-               Password<br>
-               <input class="field" type="password" name="password"><br>
+            <h2 id=signin>Sign in with Spotify</h2>
                <div class="row">
                  <div class="col-sm-5"></div>
-                 <a class="ripple col-sm-2" id="submit" color="black">Submit</a>
+                 <a class="ripple col-sm-2 btn" id="submit" color="black" href="/login">Login</a>
                  <div class="col-sm-5"></div>
                </div>
           </form>
@@ -129,7 +120,7 @@
     <section class="p-0" id="heart">
       <div class="row">
         <div class ="col-sm-6" id="chartContainer" style="height: 370px; width: 100%;">
-          <head>  
+          <head>
             <script>
             window.onload = function () {
 
@@ -142,9 +133,9 @@
               axisY: {
                 title: "Beats Per Minute (BPM)"
               },
-              data: [{        
-                type: "column",  
-                dataPoints: [      
+              data: [{
+                type: "column",
+                dataPoints: [
                   { y: 300878, label: "Venezuela" },
                   { y: 266455,  label: "Saudi" },
                   { y: 169709,  label: "Canada" },
