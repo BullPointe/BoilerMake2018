@@ -17,10 +17,6 @@
   },
   "homepage": "https://github.com/BullPointe/BoilerMake2018#readme",
   "dependencies": {
-    "cookie-parser": "^1.4.3",
-    "cors": "^2.8.4",
-    "express": "^4.16.4",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "express": "^4.16.4"
   }
 }
